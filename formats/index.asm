@@ -1,0 +1,6 @@
+.include "binary.asm"
+.include "decimal.asm"
+.include "float.asm"
+.include "hex.asm"
+.include "octal.asm"
+.include "packed.asm"

@@ -16,6 +16,7 @@ main:
 
     beq $s0, 1, parse_bin
 
+    print_str(msg_error)
     j main
 
 # ============================================================
@@ -39,12 +40,14 @@ output:
 
     move $a0, $s1 # $a0 = entero interno a convertir a formato de salida
     la $ra, main
+
     beq $s0, 1, print_bin
 
-    j main
+    print_str(msg_error)
+    j output
 
 end_prog:
     li $v0, 10
     syscall
 
-.include "formats/binary.asm"
+.include "formats/index.asm"
