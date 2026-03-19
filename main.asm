@@ -34,4 +34,4 @@ end_prog:
     li $v0, 10
     syscall
 
-.include "converters/binary.asm"
+.include "formats/binary.asm"
