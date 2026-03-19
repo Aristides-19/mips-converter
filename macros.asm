@@ -11,8 +11,8 @@
     syscall
 .end_macro
 
-.macro print_char(%char)
-    li $a0, %char
+.macro print_char(%reg)
+    move $a0, %reg
     li $v0, 11
     syscall
 .end_macro

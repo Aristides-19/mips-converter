@@ -21,3 +21,26 @@ stb_loop:
     j stb_loop
 stb_end:
     jr $ra
+
+print_bin:
+    li $t0, 0 # Contador de iteraciones
+    move $t2, $a0 # Guardar el valor original de $a0 para la impresión
+pbin_loop:
+    beq $t0, 32, pbin_end
+
+    # Desplazar el BMS a la derecha
+    srl $t1, $t2, 31
+    # Comparar el bit más significativo con 1 para determinar si es 0 o 1
+    andi $t1, $t1, 1
+    # Si el bit es 1, $t1 será '1'; si es 0, $t1 será '0'
+    addi $t1, $t1, 48 # Convertir a char '0' o '1'
+
+    # Desplazar a la izquierda para preparar el siguiente bit
+    sll $t2, $t2, 1
+    # Incrementar el contador de iteraciones
+    addi $t0, $t0, 1
+
+    print_char($t1)
+    j pbin_loop
+pbin_end:
+    jr $ra
