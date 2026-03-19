@@ -10,3 +10,15 @@
     li $v0, 8
     syscall
 .end_macro
+
+.macro print_char(%char)
+    li $a0, %char
+    li $v0, 11
+    syscall
+.end_macro
+
+.macro read_int(%var)
+    li $v0, 5
+    syscall
+    move %var, $v0
+.end_macro

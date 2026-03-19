@@ -5,9 +5,7 @@
 main:
     print_str(menu_in)
 
-    li $v0, 5
-    syscall
-    move $s0, $v0 # $s0 = opcion entrada
+    read_int($s0) # $s0 = opción seleccionada por el usuario
 
     beq $s0, 7, end_prog
     
@@ -17,6 +15,7 @@ main:
     la $a0, buffer # $a0 = dirección base del buffer de entrada
 
     beq $s0, 1, parse_bin
+    j main
 
 # ============================================================
 # SECTION RUTINAS DE PARSEO [STR (buffer) en $a0 -> INT en $s1 <- $v0]
