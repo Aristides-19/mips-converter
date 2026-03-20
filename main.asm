@@ -15,6 +15,8 @@ main:
     la $a0, buffer # $a0 = dirección base del buffer de entrada
 
     beq $s0, 1, parse_bin
+    beq $s0, 3, parse_dec
+    beq $s0, 6, parse_frac
 
     print_str(msg_error)
     j main
@@ -30,6 +32,18 @@ parse_bin:
     move $s1, $v0 # $s1 = entero interno representando el número ingresado
     j output
 
+parse_dec:
+    jal str_to_dec
+    move $s1, $v0
+    j output
+
+parse_frac:
+    # La opcion 6 (Fraccionario) procesa e imprime directo sin pasar por 'output'
+    print_str(msg_output)
+    la $a0, buffer # Restaurar $a0 con el buffer de entrada
+    jal dec_to_bin_frac
+    j main
+
 # !SECTION
 
 output:
@@ -42,6 +56,7 @@ output:
     la $ra, main
 
     beq $s0, 1, print_bin
+    beq $s0, 3, print_dec
 
     print_str(msg_error)
     j output
