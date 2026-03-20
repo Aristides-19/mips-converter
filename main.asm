@@ -16,7 +16,6 @@ main:
 
     beq $s0, 1, parse_bin
     beq $s0, 3, parse_dec
-    beq $s0, 5, parse_hex
     beq $s0, 6, parse_frac
 
     print_str(msg_error)
@@ -36,11 +35,6 @@ parse_bin:
 parse_dec:
     jal str_to_dec
     move $s1, $v0
-    j output
-
-parse_hex:
-    jal str_to_hex
-    move $s1, $v0 # $s1 = entero interno representando el número ingresado
     j output
 
 parse_frac:
@@ -63,7 +57,6 @@ output:
 
     beq $s0, 1, print_bin
     beq $s0, 3, print_dec
-    beq $s0, 5, print_hex
 
     print_str(msg_error)
     j output
