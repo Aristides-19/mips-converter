@@ -33,16 +33,19 @@ parse_bin:
     move $s1, $v0 # $s1 = entero interno representando el número ingresado
     j output
 
+# FORMATO DE BUFFER -> (-)123456
 parse_dec:
     jal str_to_dec
     move $s1, $v0
     j output
 
+# FORMATO DE BUFFER ->  (-)186A0 (sin espacios, mayusculas)
 parse_hex:
     jal str_to_hex
     move $s1, $v0
     j output
 
+# FORMATO DE BUFFER -> (-)2.75
 parse_frac:
     # La opcion 6 (Fraccionario) procesa e imprime directo sin pasar por 'output'
     print_str(msg_output)
