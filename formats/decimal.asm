@@ -6,12 +6,20 @@ str_to_dec:
 
     # Revisar si el primer caracter es un signo negativo '-'
     lb $t0, 0($a0)
-    bne $t0, 45, std_loop # '-' es 45 en ASCII. Si no es, iniciar loop normal.
+    beq $t0, 45, std_negative # "-" es 45 en ASCII
+    beq $t0, 43, std_positive #"+" es 43 en ASCII
+    j std_loop
     
-    # Si es negativo '-'
-    li $t1, -1       # Cambiar el signo a -1
-    addi $a0, $a0, 1 # Avanzar puntero para saltarnos el '-'
+std_negative:
+    li $t1, -1 # Cambiar el signo a -1
+    addi $a0, $a0, 1 # saltar el "-"
+    j std_loop
 
+std_positive:
+	addi $a0, $a0, 1 #salta el "+", y queda 1
+    
+    
+   
 std_loop:
     # Cargar el byte actual del string (char)
     lb $t0, 0($a0)
@@ -44,16 +52,23 @@ print_dec:
     
     # Manejar caso especifico donde el numero es cero
     bnez $t2, pdec_check_sign
+    li $t0, 43 #"+"
+    print_char($t0)
     li $t0, 48 # '0'
     print_char($t0)
     j pdec_end
 
 pdec_check_sign:
-    bgtz $t2, pdec_start
+    bgtz $t2, pdec_positive
     # Si es negativo, imprimir signo '-' y pasarlo a positivo (complemento a 2)
     li $t0, 45 # '-' ASCII
     print_char($t0)
-    subu $t2, $zero, $t2 # Negar $t2
+    neg $t2, $zero, $t2 # Negar $t2
+    j pdec_start
+    
+pdec_positive:
+   li $t0, 43 #"+"
+   print_char($t0)
 
 pdec_start:
     li $t3, 10 # Base 10 para dividir
