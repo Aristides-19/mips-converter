@@ -38,7 +38,8 @@ parse_bin:
     move $s1, $v0 # $s1 = entero interno representando el número ingresado
     j output
 
-# ebtrada esperada : 00000000000000000000010100111100
+
+# entrada esperada : 00000000000000000000010100111100
 parse_packed:
 	jal str_to_packed # convierte BCD empaquetado a entero en $v0
 	move $s1, $v0
@@ -52,7 +53,7 @@ parse_dec:
     j output
     
     
-# entrada esperadaÑ "+52" o "-52"
+# entrada esperada "+52" o "-52"
 parse_oct:
 	jal str_to_oct #convierte string octal a entero $v0
 	move $s1, $v0
@@ -64,6 +65,7 @@ parse_hex:
     jal str_to_hex
     move $s1, $v0
     j output
+
 
 # FORMATO DE BUFFER -> [-]2.75
 parse_frac:

@@ -63,7 +63,7 @@ pdec_check_sign:
     # Si es negativo, imprimir signo '-' y pasarlo a positivo (complemento a 2)
     li $t0, 45 # '-' ASCII
     print_char($t0)
-    neg $t2, $zero, $t2 # Negar $t2
+    neg $t2, $t2 # Negar $t2
     j pdec_start
     
 pdec_positive:
